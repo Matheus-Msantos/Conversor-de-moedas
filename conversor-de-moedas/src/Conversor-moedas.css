@@ -1,0 +1,57 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+:root {
+    --grey: #e8e8e8;
+    --blue: #47c8e6;
+    --blue_700: #1c4e59;
+    --white: #fff;
+    --black: #000;
+}
+
+* {
+    font-family: "Poppins", sans-serif;
+}
+
+.c-moedas-container {
+    background: var(--grey);
+}
+
+.c-moedas-container-convertor {
+    display: flex;
+    justify-content: center;
+}
+
+.c-moedas-box {
+    width: 20%;
+}
+
+.c-moedas-box-campo {
+    display: block;
+    width: 90%;
+    height: 43px;
+    border-radius: 10px;
+    outline: none;
+    padding: 10px;
+    margin: 0 auto;
+}
+
+.c-moedas-box--icon {
+    margin: 0 25px;
+    padding-top: 9px;
+}
+
+.c-moedas-botao {
+    width: 50%;
+    height: 43px;
+    text-align: center;
+    color: var(--black);
+    background: var(--blue);
+    border-radius: 10px;
+    border: 0;
+    transition: 0.3s;
+}
+
+.c-moedas-botao:hover {
+    color: var(--white);
+    background: var(--blue_700);
+}
