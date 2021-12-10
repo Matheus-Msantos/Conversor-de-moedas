@@ -2,8 +2,9 @@
 
 :root {
     --grey: #e8e8e8;
-    --blue: #47c8e6;
-    --blue_700: #1c4e59;
+    --blue: #4dcdff;
+    --blue_700: #138de7;
+    --red: #c40e0c;
     --white: #fff;
     --black: #000;
 }
@@ -29,6 +30,7 @@
     display: block;
     width: 90%;
     height: 43px;
+    border: 1px solid #000;
     border-radius: 10px;
     outline: none;
     padding: 10px;
@@ -45,8 +47,10 @@
     height: 43px;
     text-align: center;
     color: var(--black);
+    font-weight: 500;
+    text-transform: uppercase;
     background: var(--blue);
-    border-radius: 10px;
+    border-radius: 80px;
     border: 0;
     transition: 0.3s;
 }
@@ -54,4 +58,93 @@
 .c-moedas-botao:hover {
     color: var(--white);
     background: var(--blue_700);
+}
+
+.c-moedas-error {
+    width: 30%;
+    height: 30px;
+    border-radius: 4px;
+    background: var(--red);
+    margin: 40px auto;
+}
+
+.c-moedas-error span {
+    display: block;
+    width: 100%;
+    color: var(--white);
+    text-align: center;
+    font-size: 17px;
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 30px;
+    letter-spacing: 1px;
+}
+
+.c-moedas-modal-overley {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.c-moedas-modal-container {
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px 0px var(--black);
+    background: var(--white);
+    margin: 0 auto;
+    padding: 16px;
+}
+
+.c-moedas-modal-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--grey);
+    padding-bottom: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.c-moedas-modal-header h3 {
+    font-size: 23px;
+    text-transform: uppercase;
+    margin: 0;
+}
+
+.c-moedas-modal-content {
+    margin: 30px 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.c-moedas-modal-content span {
+    display: block;
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.c-moedas-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    border-top: 2px solid var(--grey);
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.c-moedas-modal-footer button {
+    width: 192px;
+    height: 43px;
+    color: var(--black);
+    font-weight: 500;
+    text-transform: uppercase;
+    background: var(--blue);
+    border: 0;
+    border-radius: 80px;
+    transition: 0.3s;
+}
+
+.c-moedas-modal-footer button:hover {
+    color: var(--white);
+    text-transform: uppercase;
+    background: var(--blue_700);
+    transition: 0.3s;
 }
