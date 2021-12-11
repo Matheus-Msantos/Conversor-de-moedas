@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
 import './Conversor-moedas.css';
 import ListarMoedas from './Listar-moedas'
-import { Button, Form, Col, Spinner } from 'react-bootstrap';
+import axios from 'axios';
+import { Spinner } from 'react-bootstrap';
 
 function ConversorMoedas() {
 
+  const BASE_URL = "http://data.fixer.io/api/latest?access_key=2b83ccc7bd5fce156ec00f7c4e84a648";
+
   const [valor, setValor] = useState(1)
+  const [converterMoeda, setConverterMoeda] = useState('');
   const [moedaPrincipal, setMoedaPrincipal] = useState('BRL');
   const [moedaConverter, setMoedaConverter] = useState('USD');
-  const [spinner, setSpinner] = useState(false)
-  const [modal, setModal] = useState(false)
+  const [spinner, setSpinner] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [error, setErro] = useState(false);
 
   const atualizarValor = (e) => {
     setValor(e.target.value);
@@ -23,13 +28,13 @@ function ConversorMoedas() {
     setMoedaConverter(e.target.value);
   };
 
-  const mostrarSpinner = () => {
-    setSpinner(true)
-  }
+  const mostrarSpinner = (item) => {
+    setSpinner(item);
+  };
 
   const mostrarModal = () => {
-    setModal(true)
-  }
+    setModal(true);
+  };
 
   const fecharModal = () => {
     setModal(false);
@@ -37,13 +42,30 @@ function ConversorMoedas() {
     setValor(1);
     setMoedaPrincipal('BRL');
     setMoedaConverter('USD');
-  }
+  };
 
   const submitForm = (e) => {
     e.preventDefault();
-    mostrarSpinner();
     mostrarModal();
-  }
+
+    axios.get(BASE_URL)
+      .then(res => {
+        const cotacao = obterDados(res.data);
+        setConverterMoeda(`${valor} ${moedaPrincipal} = ${cotacao} ${moedaConverter}`);
+        mostrarSpinner(false);
+      });
+  };
+
+  const obterDados = (dados) => {
+    if (!dados || dados.success !== true) {
+      setErro(true);
+      return false;
+    }
+    const cotacaoPrincipal = dados.rates[moedaPrincipal];
+    const cotacaoConverter = dados.rates[moedaConverter];
+    const cotacao = (1 / cotacaoPrincipal * cotacaoConverter) * valor;
+    return cotacao.toFixed(2);
+  };
 
   return (
     <>
@@ -86,7 +108,7 @@ function ConversorMoedas() {
             </div>
 
             <div className="c-moedas-box">
-              <button className="c-moedas-botao" type="submit">
+              <button className="c-moedas-botao" type="submit" onClick={() => mostrarSpinner(true)}>
                 <span className={spinner === false ? 'c-moedas-hidden' : ''}>
                   <Spinner animation="border" size="sm" ></Spinner>
                 </span>
@@ -99,7 +121,7 @@ function ConversorMoedas() {
           </form>
         </div>
 
-      </div>
+      </div >
 
       <div className={modal === false ? 'c-moedas-hidden' : 'c-moedas-modal-overley'} onClick={() => fecharModal()}>
       </div>
@@ -114,7 +136,7 @@ function ConversorMoedas() {
         </div>
 
         <div className="c-moedas-modal-content">
-          <span>lorem ipsum....</span>
+          <span>{converterMoeda}</span>
         </div>
 
         <div className="c-moedas-modal-footer">
