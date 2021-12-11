@@ -44,23 +44,30 @@ function ConversorMoedas() {
     setMoedaConverter('USD');
   };
 
+  const mostrarErro = (item) => {
+    setErro(item)
+  }
+
   const submitForm = (e) => {
     e.preventDefault();
+    mostrarSpinner(true)
     mostrarModal();
 
     axios.get(BASE_URL)
       .then(res => {
         const cotacao = obterDados(res.data);
-        setConverterMoeda(`${valor} ${moedaPrincipal} = ${cotacao} ${moedaConverter}`);
         mostrarSpinner(false);
-      });
+        setConverterMoeda(`${valor} ${moedaPrincipal} = ${cotacao} ${moedaConverter}`);
+      }).catch(err => mostrarErro(true));
   };
 
   const obterDados = (dados) => {
     if (!dados || dados.success !== true) {
-      setErro(true);
+      mostrarErro(true);
+      fecharModal();
       return false;
     }
+    mostrarErro(false)
     const cotacaoPrincipal = dados.rates[moedaPrincipal];
     const cotacaoConverter = dados.rates[moedaConverter];
     const cotacao = (1 / cotacaoPrincipal * cotacaoConverter) * valor;
@@ -72,8 +79,8 @@ function ConversorMoedas() {
       <div className="c-moedas-container">
         <h1>Conversor-moedas</h1>
 
-        <div className="c-moedas-error">
-          <span>Error</span>
+        <div className={error === true ? "c-moedas-error" : "c-moedas-hidden"}>
+          <span>Ocorreu um error inesperado por favor, tente novamente</span>
         </div>
 
         <div className="c-moedas-container-convertor">
@@ -108,7 +115,7 @@ function ConversorMoedas() {
             </div>
 
             <div className="c-moedas-box">
-              <button className="c-moedas-botao" type="submit" onClick={() => mostrarSpinner(true)}>
+              <button className="c-moedas-botao" type="submit" >
                 <span className={spinner === false ? 'c-moedas-hidden' : ''}>
                   <Spinner animation="border" size="sm" ></Spinner>
                 </span>
