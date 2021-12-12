@@ -115,7 +115,7 @@ function ConversorMoedas() {
             </div>
 
             <div className="c-moedas-box">
-              <button className="c-moedas-botao" type="submit" >
+              <button className="c-moedas-botao" type="submit" data-testid="btn-converter">
                 <span className={spinner === false ? 'c-moedas-hidden' : ''}>
                   <Spinner animation="border" size="sm" ></Spinner>
                 </span>
@@ -133,7 +133,7 @@ function ConversorMoedas() {
       <div className={modal === false ? 'c-moedas-hidden' : 'c-moedas-modal-overley'} onClick={() => fecharModal()}>
       </div>
 
-      <div className={modal === false ? 'c-moedas-hidden' : 'c-moedas-modal-container'}>
+      <div className={modal === false ? 'c-moedas-hidden' : 'c-moedas-modal-container'} data-testid="modal">
         <div className="c-moedas-modal-header">
           <h3>Conversão</h3>
 
